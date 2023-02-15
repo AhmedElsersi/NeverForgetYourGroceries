@@ -14,15 +14,15 @@ import kotlinx.coroutines.launch
 class GroceriesViewModel(application: Application):AndroidViewModel(application) {
     // local implementations
     private var localRepositoryImp: LocalRepositoryImp
-    private var userMutableLiveData = MutableLiveData<List<Grocery>>()
-    val userLiveData: LiveData<List<Grocery>> get() = userMutableLiveData
+    private var groceryMutableLiveData = MutableLiveData<List<Grocery>>()
+    val groceryLiveData: LiveData<List<Grocery>> get() = groceryMutableLiveData
     init {
         val db = GroceryDatabase.getInstance(application)
         localRepositoryImp= LocalRepositoryImp(db)
     }
 
     fun getGroceries()= viewModelScope.launch{
-        userMutableLiveData.postValue(localRepositoryImp.getGroceries())
+        groceryMutableLiveData.postValue(localRepositoryImp.getGroceries())
     }
     fun addGrocery(grocery: Grocery){
         viewModelScope.launch (Dispatchers.IO){

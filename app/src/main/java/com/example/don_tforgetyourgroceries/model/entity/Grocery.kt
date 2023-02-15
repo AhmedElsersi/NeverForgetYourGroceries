@@ -8,8 +8,9 @@ import androidx.room.PrimaryKey
 data class Grocery (
     @PrimaryKey(autoGenerate = true)
     var id:Int,
-    @ColumnInfo(name = "grocery")
+//    @ColumnInfo(name = "grocery_name")
     var name:String,
-    var message: String,
-    var imageId:Int
+    var imageId:Int,
+    var quantity: String,
+    var unit:String
         )

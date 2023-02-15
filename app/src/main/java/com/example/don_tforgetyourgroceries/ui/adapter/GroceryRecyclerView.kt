@@ -1,52 +1,57 @@
 package com.example.don_tforgetyourgroceries.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.don_tforgetyourgroceries.R
 import com.example.don_tforgetyourgroceries.model.entity.Grocery
 
-class GroceryRecyclerView : RecyclerView.Adapter<GroceryRecyclerView.userViewHolder>() {
+class GroceryRecyclerView : RecyclerView.Adapter<GroceryRecyclerView.GroceryViewHolder>() {
 
-    var groceryList:List<Grocery> = emptyList()
+    private var groceryList:List<Grocery> = emptyList()
     var onListItemClicked : OnListItemClicked?= null
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setList(groceries:List<Grocery>){
         this.groceryList = groceries
         notifyDataSetChanged()
     }
 
-//    lateinit var binding: u
 
-    inner class userViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-/*        var iviPhoto:ImageView=itemView.findViewById(R.id.iviPhoto)
-        var tviName:TextView=itemView.findViewById(R.id.tviName)
-        var tviMessage:TextView=itemView.findViewById(R.id.tviMessage)
+    inner class GroceryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private var iviPhoto: ImageView =itemView.findViewById(R.id.iviPhoto)
+        private var tviName: TextView =itemView.findViewById(R.id.tviGrocery)
+        private var tviQuantity:TextView=itemView.findViewById(R.id.tviQuantity)
+        private var tviUnit:TextView=itemView.findViewById(R.id.tviUnit)
 
         fun bind(grocery: Grocery){
             iviPhoto.setImageResource(grocery.imageId)
             tviName.text= grocery.name
-            tviMessage.text= grocery.message
+            tviQuantity.text= grocery.quantity
+            tviUnit.text= grocery.unit
             itemView.setOnClickListener {
                 onListItemClicked?.onItemClicked(grocery)
             }
-        }*/
+        }
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): userViewHolder {
-        var view:View = LayoutInflater.from(parent.context).inflate(R.layout.list_item,parent,false)
-        return userViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroceryViewHolder {
+        val view:View = LayoutInflater.from(parent.context).inflate(R.layout.list_item,parent,false)
+        return GroceryViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return groceryList.size
     }
 
-    override fun onBindViewHolder(holder: userViewHolder, position: Int) {
-        var grocery:Grocery = groceryList[position]
-//        holder.bind(grocery)
+    override fun onBindViewHolder(holder: GroceryViewHolder, position: Int) {
+        val grocery:Grocery = groceryList[position]
+        holder.bind(grocery)
     }
 
 }
